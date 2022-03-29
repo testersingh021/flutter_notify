@@ -10,16 +10,17 @@ import 'package:page_turn/page_turn.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
     // Replace with actual values
     options: const FirebaseOptions(
       apiKey: "AIzaSyAbBeSbaD3rQvWcL4x-TydagGoRUS5B-Js",
-      appId: "1:669833687465:android:038fc1bdd222a37b6414b8",
-      messagingSenderId: "669833687465",
+      authDomain: "flutternotify-68609.firebaseapp.com",
       projectId: "flutternotify-68609",
-    ),
-  );  runApp(const MyApp());
+      storageBucket: "flutternotify-68609.appspot.com",
+      messagingSenderId: "669833687465",
+      appId: "1:669833687465:android:038fc1bdd222a37b6414b8",
+    ),);
+    runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
@@ -29,7 +30,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      title: 'Flutter Demo Website',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
         // This is the theme of your application.
@@ -41,7 +42,7 @@ class MyApp extends StatelessWidget {
         // or simply save your changes to "hot reload" in a Flutter IDE).
         // Notice that the counter didn't reset back to zero; the application
         // is not restarted.
-        primarySwatch: Colors.blue,
+        primarySwatch: Colors.red,
       ),
       home:  const MyHomePage(title: 'My Web',),
     );
@@ -129,7 +130,7 @@ class _MyHomePageState extends State<MyHomePage> {
       floatingActionButton: FloatingActionButton(
         onPressed: _incrementCounter,
         tooltip: 'Increment',
-        child: const Icon(Icons.add),
+        child: const Icon(Icons.add,color: Colors.red),
       ), // This trailing comma makes auto-formatting nicer for build methods.
     );
   }
