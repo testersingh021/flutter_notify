@@ -10,8 +10,16 @@ import 'package:page_turn/page_turn.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp();
-  runApp(const MyApp());
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(
+    // Replace with actual values
+    options: const FirebaseOptions(
+      apiKey: "AIzaSyAbBeSbaD3rQvWcL4x-TydagGoRUS5B-Js",
+      appId: "1:669833687465:android:038fc1bdd222a37b6414b8",
+      messagingSenderId: "669833687465",
+      projectId: "flutternotify-68609",
+    ),
+  );  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
