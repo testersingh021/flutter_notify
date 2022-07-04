@@ -1,8 +1,5 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_notify/effects/page.dart';
-import 'package:native_pdf_renderer/native_pdf_renderer.dart';
-import 'package:page_turn/page_turn.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -39,7 +36,7 @@ class MyApp extends StatelessWidget {
         // or simply save your changes to "hot reload" in a Flutter IDE).
         // Notice that the counter didn't reset back to zero; the application
         // is not restarted.
-        primarySwatch: Colors.yellow,
+        primarySwatch: Colors.green,
       ),
       home: const MyHomePage(
         title: 'My Web',
@@ -137,142 +134,4 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 }
 
-class MyHomeApp extends StatefulWidget {
-  const MyHomeApp({Key? key}) : super(key: key);
 
-  @override
-  _HomeScreenState createState() => _HomeScreenState();
-}
-
-class _HomeScreenState extends State<MyHomeApp>
-    with SingleTickerProviderStateMixin {
-  final _controller = GlobalKey<PageTurnState>();
-  PdfPageImage? pageImage;
-  List<PdfPageImage> listpageImage = [];
-  bool isShowProgress = false;
-  late AnimationController _animationController;
-
-  int size = 0;
-
-  @override
-  void initState() {
-    getPageImage();
-    _animationController = AnimationController(
-      value: 0.5,
-      duration: const Duration(milliseconds: 450),
-      vsync: this,
-    );
-    super.initState();
-  }
-
-  Future<PdfPageImage> getPageImage() async {
-    setState(() {
-      isShowProgress = true;
-    });
-    if (listpageImage != null) {
-      listpageImage.clear();
-    }
-    final document = await PdfDocument.openAsset('assets/hello.pdf');
-    // final page = document.getPage(1);
-    if (document != null) {
-      // Fluttertoast.showToast(
-      //     msg: "${document.pagesCount}",
-      //     toastLength: Toast.LENGTH_SHORT,
-      //     gravity: ToastGravity.CENTER,
-      //     timeInSecForIosWeb: 1,
-      //     backgroundColor: Colors.red,
-      //     textColor: Colors.white,
-      //     fontSize: 16.0);
-
-      for (int i = 1; i <= document.pagesCount; i++) {
-        final page = await document.getPage(i);
-        pageImage = await page.render(
-          width: page.width,
-          height: page.height,
-          format: PdfPageImageFormat.jpeg,
-        );
-        if (pageImage != null) {
-          listpageImage.add(pageImage!);
-        }
-        await page.close();
-      }
-
-      setState(() {
-        isShowProgress = false;
-        size = listpageImage.length;
-      });
-    }
-    return pageImage!;
-  }
-
-  // FutureBuilder<PdfPageImage>(
-  //   future:  getPageImage(),
-  //   builder: (context, snapshot) {
-  //     print(snapshot.data);
-  //     if (snapshot.data == null) {
-  //       return const Center(child: CircularProgressIndicator());
-  //     }else {
-  //      // final Animation<double>? amount=
-  //
-  //       return
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      body: Container(
-        child: PageTurn(
-          key: _controller,
-          backgroundColor: Colors.white,
-          showDragCutoff: false,
-          lastPage: const Center(child: Text('Please Wait!')),
-          children: <Widget>[
-            for (var i = 1; i < 50; i++)
-              AlicePage(
-                page: i,
-                listpageImage: listpageImage,
-              ),
-          ],
-        ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        child: const Icon(Icons.search),
-        onPressed: () {
-          _controller.currentState?.goToPage(2);
-        },
-      ),
-    );
-    /*  Scaffold(
-        body: Container(
-            child: listpageImage.isNotEmpty && !isShowProgress
-                ? PageTurnWidget(
-                amount: const AlwaysStoppedAnimation(1.0),
-                child: PageTurn(key: _controller,
-                    //showDragCutoff: false,
-                    //backgroundColor: Colors.white,
-                    children: <Widget>[
-                      for (var i = 0; i < 20; i++) AlicePage(page: i,),
-                          // PageTurnImage(
-                          //     image: MemoryImage(listpageImage[i-1].bytes),
-                          //     amount: const AlwaysStoppedAnimation(1.0),
-                          //   ),
-
-                      ]))
-                : const Center(child: CircularProgressIndicator())));*/
-  }
-
-  Widget _buildListComment() {
-    final List<Widget> widgets = <Widget>[];
-
-    for (int i = 1; i < listpageImage.length; i++) {
-      widgets.add(Container(
-          child: Image(
-        image: MemoryImage(listpageImage[i - 1].bytes),
-      )));
-    }
-    setState(() {});
-    return SingleChildScrollView(
-      child: Column(
-        children: widgets,
-      ),
-    );
-  }
-}
