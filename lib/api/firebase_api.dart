@@ -11,7 +11,10 @@ class FirebaseApi {
       .collection('users')
       .orderBy(UserField.lastMessageTime, descending: true)
       .snapshots()
-      .transform(Utils.transformer(User.fromJson));
+      .map((message) =>
+      message.docs.map((e) =>
+          User.fromJson(e.data as Map<String, dynamic>)).toList());
+     // .transform(Utils.transformer(User.fromJson));
 
   static Future uploadMessage(String idUser, String message) async {
     final refMessages =
@@ -24,7 +27,7 @@ class FirebaseApi {
       message: message,
       createdAt: DateTime.now(),
     );
-    await refMessages.add(newMessage.toJson());
+    await refMessages.add(newMessage.toJson().cast());
 
     final refUsers = FirebaseFirestore.instance.collection('users');
     await refUsers
@@ -37,7 +40,11 @@ class FirebaseApi {
           .collection('chats/$idUser/messages')
           .orderBy(MessageField.createdAt, descending: true)
           .snapshots()
-      .transform(Utils.transformer(Message.fromJson));
+          .map((message) =>
+          message.docs.map((e) =>
+              Message.fromJson(e.data as Map<String, dynamic>)).toList());
+
+
 
   static Future addRandomUsers(List<User> users) async {
     final refUsers = FirebaseFirestore.instance.collection('users');

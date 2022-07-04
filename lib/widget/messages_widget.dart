@@ -19,7 +19,7 @@ class MessagesWidget extends StatelessWidget {
         builder: (context, snapshot) {
           switch (snapshot.connectionState) {
             case ConnectionState.waiting:
-              return Center(child: CircularProgressIndicator());
+              return const Center(child: CircularProgressIndicator());
             default:
               if (snapshot.hasError) {
                 return buildText('Something Went Wrong Try later');

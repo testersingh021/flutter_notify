@@ -14,8 +14,8 @@ class ChatBodyWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) => Expanded(
         child: Container(
-          padding: EdgeInsets.all(10),
-          decoration: BoxDecoration(
+          padding: const EdgeInsets.all(10),
+          decoration: const BoxDecoration(
             color: Colors.white,
             borderRadius: BorderRadius.only(
               topLeft: Radius.circular(25),

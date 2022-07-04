@@ -12,14 +12,14 @@ class ChatHeaderWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => Container(
-        padding: EdgeInsets.symmetric(horizontal: 12, vertical: 24),
+        padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 24),
         width: double.infinity,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Container(
+            SizedBox(
               width: MediaQuery.of(context).size.width * 0.75,
-              child: Text(
+              child: const Text(
                 'ChatsApp',
                 style: TextStyle(
                   color: Colors.white,
@@ -28,8 +28,8 @@ class ChatHeaderWidget extends StatelessWidget {
                 ),
               ),
             ),
-            SizedBox(height: 12),
-            Container(
+            const SizedBox(height: 12),
+            SizedBox(
               height: 60,
               child: ListView.builder(
                 scrollDirection: Axis.horizontal,
@@ -38,8 +38,8 @@ class ChatHeaderWidget extends StatelessWidget {
                   final user = users[index];
                   if (index == 0) {
                     return Container(
-                      margin: EdgeInsets.only(right: 12),
-                      child: CircleAvatar(
+                      margin: const EdgeInsets.only(right: 12),
+                      child: const CircleAvatar(
                         radius: 24,
                         child: Icon(Icons.search),
                       ),

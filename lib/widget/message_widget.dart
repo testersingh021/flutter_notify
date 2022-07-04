@@ -22,9 +22,9 @@ class MessageWidget extends StatelessWidget {
           CircleAvatar(
               radius: 16, backgroundImage: NetworkImage(message.urlAvatar)),
         Container(
-          padding: EdgeInsets.all(16),
-          margin: EdgeInsets.all(16),
-          constraints: BoxConstraints(maxWidth: 140),
+          padding: const EdgeInsets.all(16),
+          margin: const EdgeInsets.all(16),
+          constraints: const BoxConstraints(maxWidth: 140),
           decoration: BoxDecoration(
             color: isMe ? Colors.grey[100] : Theme.of(context).accentColor,
             borderRadius: isMe

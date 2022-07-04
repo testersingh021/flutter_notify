@@ -1,10 +1,6 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_notify/index.dart';
 import 'package:flutter_notify/effects/page.dart';
-import 'package:flutter_notify/sign_in_demo.dart';
-import 'package:flutter_notify/social_login.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:native_pdf_renderer/native_pdf_renderer.dart';
 import 'package:page_turn/page_turn.dart';
 
@@ -19,8 +15,9 @@ Future<void> main() async {
       storageBucket: "flutternotify-68609.appspot.com",
       messagingSenderId: "669833687465",
       appId: "1:669833687465:android:038fc1bdd222a37b6414b8",
-    ),);
-    runApp(const MyApp());
+    ),
+  );
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
@@ -42,9 +39,11 @@ class MyApp extends StatelessWidget {
         // or simply save your changes to "hot reload" in a Flutter IDE).
         // Notice that the counter didn't reset back to zero; the application
         // is not restarted.
-        primarySwatch: Colors.blue,
+        primarySwatch: Colors.yellow,
       ),
-      home:  const MyHomePage(title: 'My Web',),
+      home: const MyHomePage(
+        title: 'My Web',
+      ),
     );
   }
 }
@@ -130,7 +129,9 @@ class _MyHomePageState extends State<MyHomePage> {
       floatingActionButton: FloatingActionButton(
         onPressed: _incrementCounter,
         tooltip: 'Increment',
-        child: const Icon(Icons.add,),
+        child: const Icon(
+          Icons.add,
+        ),
       ), // This trailing comma makes auto-formatting nicer for build methods.
     );
   }
@@ -151,7 +152,7 @@ class _HomeScreenState extends State<MyHomeApp>
   bool isShowProgress = false;
   late AnimationController _animationController;
 
-  int size=0;
+  int size = 0;
 
   @override
   void initState() {
@@ -191,15 +192,14 @@ class _HomeScreenState extends State<MyHomeApp>
           format: PdfPageImageFormat.jpeg,
         );
         if (pageImage != null) {
-            listpageImage.add(pageImage!);
-
+          listpageImage.add(pageImage!);
         }
         await page.close();
       }
 
       setState(() {
         isShowProgress = false;
-         size= listpageImage.length;
+        size = listpageImage.length;
       });
     }
     return pageImage!;
@@ -218,15 +218,20 @@ class _HomeScreenState extends State<MyHomeApp>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Container(child: PageTurn(
-        key: _controller,
-        backgroundColor: Colors.white,
-        showDragCutoff: false,
-        lastPage: const Center(child: Text('Please Wait!')),
-        children: <Widget>[
-          for (var i = 1; i <50; i++) AlicePage(page: i, listpageImage: listpageImage,),
-        ],
-      ),
+      body: Container(
+        child: PageTurn(
+          key: _controller,
+          backgroundColor: Colors.white,
+          showDragCutoff: false,
+          lastPage: const Center(child: Text('Please Wait!')),
+          children: <Widget>[
+            for (var i = 1; i < 50; i++)
+              AlicePage(
+                page: i,
+                listpageImage: listpageImage,
+              ),
+          ],
+        ),
       ),
       floatingActionButton: FloatingActionButton(
         child: const Icon(Icons.search),
@@ -234,8 +239,6 @@ class _HomeScreenState extends State<MyHomeApp>
           _controller.currentState?.goToPage(2);
         },
       ),
-
-
     );
     /*  Scaffold(
         body: Container(
@@ -273,4 +276,3 @@ class _HomeScreenState extends State<MyHomeApp>
     );
   }
 }
-
